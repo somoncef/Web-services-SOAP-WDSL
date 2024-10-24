@@ -10,8 +10,17 @@ import java.util.Optional;
 
 @WebService(serviceName = "BrokerService")
 public class BrokerService {
-    private List<Trade> trades = new ArrayList<>();
+    private List<Trade> trades;
 
+    public BrokerService() {
+        this.trades = new ArrayList<>(List.of(
+                new Trade("T001", "AAPL", 100, 150.5, System.currentTimeMillis()),
+                new Trade("T002", "GOOGL", 50, 2750.0, System.currentTimeMillis()),
+                new Trade("T003", "TSLA", 25, 700.2, System.currentTimeMillis()),
+                new Trade("T004", "AMZN", 10, 3300.0, System.currentTimeMillis()),
+                new Trade("T005", "MSFT", 75, 299.5, System.currentTimeMillis())
+        ));
+    }
 
     @WebMethod
     public Optional<Trade> getTradeById(@WebParam(name = "TradeID") String tradeId) {
@@ -25,11 +34,6 @@ public class BrokerService {
 
     @WebMethod
     public List<Trade> listTrades() {
-        return List.of(
-                new Trade("T001", "AAPL", 100, 150.5, System.currentTimeMillis()),
-                new Trade("T002", "GOOGL", 50, 2750.0, System.currentTimeMillis()),
-                new Trade("T003", "TSLA", 25, 700.2, System.currentTimeMillis())
-        );
-
+        return trades;
     }
 }
